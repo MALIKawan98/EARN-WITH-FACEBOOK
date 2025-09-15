@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Entertainment Hub</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --bg-color-1: #1a0f35;
+            --bg-color-2: #0f0f24;
+            --accent-primary: #f900ff; /* Fiery Magenta */
+            --accent-secondary: #00f2ea; /* Bright Cyan */
+            --text-color: #e5e5e5;
+            --glass-bg: rgba(26, 15, 53, 0.5);
+            --glass-border: rgba(249, 0, 255, 0.2);
+        }
+
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), #3a1c71, #d76d77);
+            background-size: 400% 400%;
+            animation: gradientAnim 20s ease infinite;
+            scroll-behavior: smooth;
+        }
+
+        @keyframes gradientAnim {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Landing Page Styles --- */
+        #landing-page {
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            height: 100vh; text-align: center; padding: 20px;
+        }
+
+        .logo {
+            width: 180px; height: 180px; border-radius: 50%;
+            border: 4px solid var(--accent-primary);
+            box-shadow: 0 0 30px var(--accent-primary), 0 0 50px rgba(249, 0, 255, 0.5);
+            margin-bottom: 50px;
+            animation: fadeInScale 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        }
+
+        @keyframes fadeInScale { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+
+        .pro-button {
+            position: relative; padding: 18px 45px; font-size: 24px; color: #fff;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            border: none; border-radius: 50px; cursor: pointer; font-weight: 700;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1.5s 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .pro-button:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); }
+
+        /* --- Ads Page Styles --- */
+        #ads-page { display: none; padding: 10px; }
+        
+        .ad-container {
+            margin: 30px auto; padding: 10px; background: var(--glass-bg);
+            border: 1px solid var(--glass-border); border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            display: flex; justify-content: center; align-items: center;
+        }
+        
+        .guidance-box {
+            margin: 20px auto 40px; padding: 25px;
+            background: rgba(0, 242, 234, 0.1); /* Cyan glass */
+            border: 1px solid var(--accent-secondary); border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 242, 234, 0.3); backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        .guidance-box h2 { color: var(--accent-secondary); margin-top: 0; }
+        .guidance-box p { font-size: 16px; line-height: 1.7; }
+        .guidance-box p strong { color: #fff; }
+
+        .video-ad-frame { width: 100%; aspect-ratio: 16 / 9; border: none; border-radius: 15px; }
+        .banner-frame { display: flex; justify-content: center; align-items: center; overflow: hidden; background-color: #000; border-radius: 10px; }
+        .banner-728-90 { max-width: 728px; width: 100%; height: 90px; }
+        .banner-468-60 { max-width: 468px; width: 100%; height: 60px; }
+        
+        .content-section { padding: 20px; }
+        .content-section h1 { 
+            font-weight: 700; color: var(--accent-primary); 
+            text-shadow: 0 0 10px var(--accent-primary);
+            border-bottom: 3px solid var(--accent-secondary);
+            padding-bottom: 10px; margin-bottom: 25px; 
+        }
+        .content-section p { line-height: 1.9; font-size: 18px; }
+        
+        .button-container { text-align: center; margin: 40px 0; display: flex; flex-direction: column; gap: 20px; align-items: center; }
+        .action-button-pro {
+            position: relative; padding: 15px 30px; font-size: 20px;
+            color: #fff; background-color: transparent;
+            border: 2px solid var(--accent-primary); border-radius: 10px;
+            cursor: pointer; width: 80%; max-width: 350px;
+            font-weight: 600; text-transform: uppercase;
+            transition: all 0.3s ease; overflow: hidden;
+        }
+        .action-button-pro:before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, var(--accent-primary), transparent); transition: left 0.5s ease; }
+        .action-button-pro:hover { color: #1a0f35; box-shadow: 0 0 20px var(--accent-primary); }
+        .action-button-pro:hover:before { left: 100%; }
+        
+        #ad-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
+        #ad-popup-frame { width: 90%; max-width: 400px; background: var(--bg-color-2); border: 2px solid var(--accent-primary); display: flex; flex-direction: column; color: #fff; font-size: 24px; border-radius: 15px; box-shadow: 0 0 30px var(--accent-primary); text-align: center; padding: 30px; }
+        #countdown { font-size: 36px; margin-top: 10px; font-weight: 700; color: var(--accent-secondary); }
+
+    </style>
+</head>
+<body>
+
+    <div id="landing-page">
+        <img src="https://files.catbox.moe/rgl2jg.jpg" alt="Logo" class="logo">
+        <button class="pro-button" onclick="showAdsPage()">Enter Nexus</button>
+    </div>
+
+    <div id="ads-page">
+        <div class="ad-container"><iframe src="https://www.revenuecpmgate.com/jv36dh5sy?key=58d94fcbb7253d36f2aed5ea11e32fee" class="video-ad-frame" title="Video Ad 1"></iframe></div>
+        
+        <!-- Guidance Box -->
+        <div class="guidance-box">
+            <h2>How to Use This Page ✨</h2>
+            <p>Welcome! The ads you see help us keep this service free. To get what you came for, simply use the buttons below. They will take you to your content and our community group. Thanks for your support! 🙏</p>
+        </div>
+
+        <div class="button-container">
+            <button class="action-button-pro" onclick="showAdAndRedirect('YOUR_DOWNLOAD_LINK_HERE')">Get Files 🚀</button>
+            <button class="action-button-pro" onclick="showAdAndRedirect('https://chat.whatsapp.com/H1MB6T6bJvmKNpO7uTdJPi')">Join WhatsApp Group 💬</button>
+        </div>
+        
+        <div class="ad-container"><div class="banner-frame banner-728-90"><script> atOptions = { 'key' : '54f213902ef7737dd62184f97edff02d', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} }; </script><script src="//www.highperformanceformat.com/54f213902ef7737dd62184f97edff02d/invoke.js"></script></div></div>
+        <div class="ad-container"><iframe src="https://www.revenuecpmgate.com/jv36dh5sy?key=58d94fcbb7253d36f2aed5ea11e32fee" class="video-ad-frame" title="Video Ad 2"></iframe></div>
+        
+        <div class="content-section">
+            <h1>The Nexus of Entertainment 🌌🎬🍿</h1>
+            <p>Welcome to the epicenter of digital entertainment! In this hyper-connected age, storytelling has evolved into an immersive art form.</p>
+            <div class="ad-container"><div class="banner-frame banner-468-60"><script> atOptions = { 'key' : '040701d5dc4882f9d334c7178fcd5c73', 'format' : 'iframe', 'height' : 60, 'width' : 468, 'params' : {} }; </script><script src="//www.highperformanceformat.com/040701d5dc4882f9d334c7178fcd5c73/invoke.js"></script></div></div>
+            <p>This guide is your portal into the vibrant, ever-changing cosmos of modern media, from blockbuster films to groundbreaking web series.</p>
+            <div class="ad-container"><div class="banner-frame banner-728-90"><script> atOptions = { 'key' : '54f213902ef7737dd62184f97edff02d', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} }; </script><script src="//www.highperformanceformat.com/54f213902ef7737dd62184f97edff02d/invoke.js"></script></div></div>
+            
+            <h2>The Cinematic Renaissance 🎥✨</h2>
+            <p>The cinema is back, and it's bigger and bolder than ever. The modern blockbuster is a multi-sensory event, a cultural touchstone.</p>
+            <div class="ad-container"><div class="banner-frame banner-468-60"><script> atOptions = { 'key' : '040701d5dc4882f9d334c7178fcd5c73', 'format' : 'iframe', 'height' : 60, 'width' : 468, 'params' : {} }; </script><script src="//www.highperformanceformat.com/040701d5dc4882f9d334c7178fcd5c73/invoke.js"></script></div></div>
+            <p>Visual effects have shattered the boundaries of imagination, creating worlds that feel tangible and real.</p>
+            <div class="ad-container"><iframe src="https://www.revenuecpmgate.com/jv36dh5sy?key=58d94fcbb7253d36f2aed5ea11e32fee" class="video-ad-frame" title="Video Ad 3"></iframe></div>
+            
+            <h2>Streaming's New Frontier ⚡📺</h2>
+            <p>Streaming platforms are the new television titans. They offer unparalleled creative freedom, resulting in web series with the depth of novels and the production quality of feature films.</p>
+            <div class="ad-container"><div class="banner-frame banner-728-90"><script> atOptions = { 'key' : '54f213902ef7737dd62184f97edff02d', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} }; </script><script src="//www.highperformanceformat.com/54f213902ef7737dd62184f97edff02d/invoke.js"></script></div></div>
+            <p>Binge-watching is more than a trend; it's the new standard for immersive storytelling.</p>
+            <div class="ad-container"><div class="banner-frame banner-468-60"><script> atOptions = { 'key' : '040701d5dc4882f9d334c7178fcd5c73', 'format' : 'iframe', 'height' : 60, 'width' : 468, 'params' : {} }; </script><script src="//www.highperformanceformat.com/040701d5dc4882f9d334c7178fcd5c73/invoke.js"></script></div></div>
+        </div>
+        
+        <!-- Final Barrage of Ads -->
+        <div class="ad-container"><iframe src="https://www.revenuecpmgate.com/jv36dh5sy?key=58d94fcbb7253d36f2aed5ea11e32fee" class="video-ad-frame" title="Video Ad 4"></iframe></div>
+        <div class="ad-container"><div class="banner-frame banner-728-90"><script> atOptions = { 'key' : '54f213902ef7737dd62184f97edff02d', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} }; </script><script src="//www.highperformanceformat.com/54f213902ef7737dd62184f97edff02d/invoke.js"></script></div></div>
+        <div class="ad-container"><div class="banner-frame banner-468-60"><script> atOptions = { 'key' : '040701d5dc4882f9d334c7178fcd5c73', 'format' : 'iframe', 'height' : 60, 'width' : 468, 'params' : {} }; </script><script src="//www.highperformanceformat.com/040701d5dc4882f9d334c7178fcd5c73/invoke.js"></script></div></div>
+        <div class="ad-container"><iframe src="https://www.revenuecpmgate.com/jv36dh5sy?key=58d94fcbb7253d36f2aed5ea11e32fee" class="video-ad-frame" title="Video Ad 5"></iframe></div>
+    </div>
+
+    <!-- Ad Popup -->
+    <div id="ad-popup">
+        <div id="ad-popup-frame">
+            <p>Initializing Access...</p>
+            <div id="countdown">3</div>
+        </div>
+    </div>
+
+    <script>
+        function showAdsPage() {
+            document.getElementById('landing-page').style.display = 'none';
+            document.getElementById('ads-page').style.display = 'block';
+        }
+        function showAdAndRedirect(url) {
+            if (url === 'https://www.revenuecpmgate.com/jv36dh5sy?key=58d94fcbb7253d36f2aed5ea11e32fee') {
+                alert('Please replace "YOUR_DOWNLOAD_LINK_HERE" with your actual download link in the code.');
+                return;
+            }
+            const popup = document.getElementById('ad-popup');
+            const countdownElement = document.getElementById('countdown');
+            popup.style.display = 'flex';
+            let timeLeft = 3;
+            countdownElement.textContent = timeLeft;
+            const interval = setInterval(() => {
+                timeLeft--;
+                countdownElement.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    popup.style.display = 'none';
+                    window.open(url, '_blank');
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
+<script type='text/javascript' src='//pl27610086.revenuecpmgate.com/b7/8c/bf/b78cbfa2858e978252d2f243c3766cf1.js'></script>
